@@ -1,0 +1,434 @@
+/* 기본 초기화 */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  overflow-x: hidden !important;
+}
+
+body {
+  height: 100vh;
+  width: 100vw;
+  font-family: 'Crimson Text', serif;
+  color: white;
+  position: relative;
+}
+
+canvas#canvasBar {
+  display: block;
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  inset: 0;
+  z-index: 2;
+}
+
+canvas#canvasBarTop {
+  display: block;
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  inset: 0;
+  z-index: 3;
+}
+
+canvas#canvasBarToDo {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  inset: 0;
+  background-color: #6fbde1;
+  z-index: 7;
+}
+
+canvas#boom {
+  pointer-events: none;
+  display: block;
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  inset: 0;
+  z-index: 8;
+}
+
+/* epilogue */
+#epilogue {
+  transition: opacity 3s ease-in-out;
+  opacity: 0;
+}
+
+#epilogue.show {
+  opacity: 1;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 35px;
+  font-family: 'Crimson Text', serif;
+  text-align: center;
+  color: #6cb9dc;
+  z-index: 10; /* 다른 요소들 위에 오도록 */
+  line-height: 1.4;
+  white-space: nowrap; /* 줄바꿈 방지 */
+}
+
+/* log in form 등장 */
+#hover-box {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 300px; /* loginForm보다 살짝 크게 */
+  height: 100px; /* loginForm 높이 정도 */
+  cursor: pointer;
+  z-index: 9999;
+  background: transparent;
+}
+
+/* background.js가 삽입하는 img */
+body > img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  z-index: -1;
+}
+
+/* 숨김 클래스 (네 코드 그대로) */
+.hidden {
+  display: none;
+}
+
+/* 로그인 폼 */
+#log-in-form {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s ease-in-out;
+}
+
+#log-in-form.show {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(255, 255, 255, 0);
+  opacity: 1;
+  pointer-events: auto;
+  z-index: 9999;
+}
+
+#log-in-form input[type='text'] {
+  font-family: 'Crimson Text', serif;
+  font-size: 80px;
+  font-weight: 400;
+  width: 300px;
+  text-align: center;
+  background: rgba(255, 255, 255, 0);
+  margin-bottom: 0px;
+  border: none;
+  z-index: 9999;
+}
+
+#log-in-form input[type='text']:focus {
+  outline: none;
+  caret-color: #adadad;
+}
+
+/* 시계 */
+.clock-wrapper {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  z-index: 2;
+}
+
+.clock-wrapper > h2 {
+  margin: 0;
+  font-size: 80px;
+  font-weight: 400;
+  width: 750px;
+  text-align: center;
+  opacity: 1;
+  transition: opacity 0.25s ease-in-out;
+}
+
+.clock-wrapper > h2#clock2 {
+  color: black;
+  text-shadow: 0 0 12px rgba(0, 0, 0, 0.2);
+}
+.clock-wrapper > h2#clock3,
+h2#clock1 {
+  color: rgb(162, 162, 162, 0.5);
+  filter: blur(1px);
+  position: relative;
+  z-index: 1;
+}
+
+.clock-wrapper.newClock {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 72px;
+}
+
+.clock-wrapper > h2#clock3.newClock,
+h2#clock1.newClock {
+  color: rgb(162, 162, 162, 0.5);
+  filter: blur(1px);
+}
+
+.clock-wrapper > h2.fade-out {
+  opacity: 0;
+}
+
+.clock-wrapper > h2.fade-in {
+  opacity: 1;
+}
+
+.clock-wrapper > h2#clock3.hide {
+  color: rgba(255, 255, 255, 0);
+}
+
+.clock-wrapper > h2#clock1.ready-font {
+  color: rgba(177, 177, 177, 1);
+  filter: blur(0px);
+}
+
+.clock-wrapper > h2#clock2.no-transition {
+  transition: none;
+}
+
+.clock-wrapper.hide-clock1 > h2#clock1 {
+  position: relative;
+  z-index: 0;
+}
+
+/* 인사말 */
+#greeting {
+  position: absolute;
+  top: 35%;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 40px;
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+/* 명언 */
+#quote {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  font-size: 18px;
+  background: rgba(0, 0, 0, 0.3);
+  padding: 10px 20px;
+  border-radius: 10px;
+}
+
+#quote span:first-child {
+  display: block;
+  margin-bottom: 5px;
+  font-style: italic;
+}
+
+#quote span:last-child {
+  font-weight: bold;
+}
+
+/* To-do 입력창 */
+#todo-form {
+  transition: opacity 2.5s ease-in-out;
+  opacity: 0;
+}
+
+#todo-form.show {
+  opacity: 1;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(230px, -50%);
+  overflow: visible;
+  width: min(100vw - 60px, 3000px);
+  z-index: 9;
+}
+
+#todo-form input {
+  font-family: 'Crimson Text', serif;
+  color: white;
+  font-size: 40px;
+  background-color: rgba(255, 250, 240, 0);
+  border: none;
+  text-align: left;
+  outline: none;
+  transform: translateY(-3px);
+  white-space: nowrap;
+  max-width: none;
+}
+
+#todo-form input::placeholder {
+  color: rgba(255, 255, 255, 0.68);
+  transform: translateY(-3px);
+}
+
+/* To-do 리스트 */
+#list {
+  opacity: 0;
+  transition: opacity 2.5s ease-in-out;
+}
+
+#list.show {
+  opacity: 1;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(230px, -50%);
+  overflow: visible;
+  height: 52px;
+  width: min(100vw - 60px, 3000px);
+  z-index: 8;
+}
+
+#list > * {
+  position: absolute;
+  top: 0;
+  left: 0; /* 전부 (0,0)에 포개짐 */
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+#list span {
+  display: inline-block;
+  font-family: 'Crimson Text', serif;
+  color: white;
+  font-size: 40px;
+  background-color: rgba(255, 250, 240, 0);
+  border: none;
+  text-align: left;
+  outline: none;
+  white-space: nowrap;
+  max-width: none;
+}
+
+#list span label {
+  display: inline-block;
+  transform: translate(-43px, -3px);
+}
+
+#list span button {
+  background: #ffffff00;
+  border: none;
+  padding: 5px 22px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  color: #333;
+  transform: translate(-95px, -100%);
+}
+
+#list > .todo-item {
+  transform-origin: -230px 50%;
+  transform: rotate(var(--angle, 0deg)) translateX(var(--shiftX, 0px));
+  transition: transform 2s ease-in-out;
+}
+
+/* 날씨 */
+
+.weather-box {
+  position: absolute;
+  left: 50%;
+  bottom: 5vh;
+  transform: translateX(-50%); /* 기준점을 박스 가운데로 교정 */
+  flex-direction: row;
+  align-items: center;
+  color: #ffffff;
+  font-family: 'Crimson Text', serif;
+  text-align: center;
+  pointer-events: none;
+  z-index: 1; /* 캔버스 위 */
+}
+
+#weather {
+  position: relative; /* 아이콘을 상대 배치하기 위한 기준 */
+  left: 50%; /* 부모(=weather-box) 너비의 절반 지점 */
+  transform: translateX(
+    -60%
+  ); /* 자기 폭 60%만큼 왼쪽 → 결과적으로 화면 정가운데보다 10%더 왼쪽 */
+  line-height: 1.2;
+  white-space: nowrap; /* 긴 단어가 줄바꿈 되지 않도록(선택) */
+}
+
+#icon {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-45%);
+  left: calc(92% + clamp(5px, 0.5vw, 48px));
+  width: auto;
+  line-height: 1.2;
+}
+
+#temp {
+  position: absolute;
+  right: 3%;
+  bottom: 5vh;
+  flex-direction: row;
+  align-items: center;
+  color: #ffffff;
+  font-family: 'Crimson Text', serif;
+  text-align: center;
+  pointer-events: none;
+  line-height: 1.37;
+  z-index: 9999; /* 캔버스 위 */
+}
+
+/* ── 화면 전체(100vw x 100vh)로 깔리는 대각선 마스크 ──
+   - 경계선 각: 45° (화면 중앙 통과)
+   - 경계선 왼쪽(=좌하 방향) 투명, 오른쪽 흰색
+   - 위치는 CSS 변수(--mask-x, --mask-y)로 이동시켜 뷰포트(0,0)에 정렬
+*/
+.weather-masked {
+  /* 각도는 변수로(기본 135deg → 경계선이 45deg가 되도록 수직으로 설정) */
+  --mask-angle: 135deg;
+  --mask-x: 0px;
+  --mask-y: 0px;
+  --mask-stop: 100%;
+
+  -webkit-mask-image: linear-gradient(
+    var(--mask-angle),
+    transparent 0 var(--mask-stop),
+    #ffffff calc(var(--mask-stop) + 1%) 100%
+  );
+  mask-image: linear-gradient(
+    var(--mask-angle),
+    transparent 0 var(--mask-stop),
+    #ffffff calc(var(--mask-stop) + 1%) 100%
+  );
+
+  -webkit-mask-size: 100vw 100vh;
+  mask-size: 100vw 100vh;
+
+  /* 뷰포트(0,0)에 맞추기 위해 요소 위치만큼 역오프셋을 넣음(→ JS에서 갱신) */
+  -webkit-mask-position: var(--mask-x) var(--mask-y);
+  mask-position: var(--mask-x) var(--mask-y);
+
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+}

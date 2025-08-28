@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Crimson+Text&display=swap"
+      rel="stylesheet"
+    />
+
+    <title>Momentum Clon</title>
+  </head>
+  <body>
+    <canvas id="boom"></canvas>
+    <canvas id="canvasBarToDo" class="hidden"></canvas>
+    <canvas id="canvasBarTop"></canvas>
+    <canvas id="canvasBar"></canvas>
+
+    <form id="log-in-form">
+      <input type="text" required maxlength="15" />
+    </form>
+    <div class="clock-wrapper hide-clock1">
+      <h2 id="clock1">00:00</h2>
+      <h2 id="clock2">00:00</h2>
+      <h2 id="clock3">00:00</h2>
+    </div>
+    <div id="quote" class="hidden">
+      <span></span><br />
+      <span></span>
+    </div>
+    <form id="todo-form">
+      <input required type="text" placeholder="write your flight plan here" />
+    </form>
+    <div id="list"></div>
+    <div class="weather-box hidden">
+      <span id="weather"></span>
+      <img id="icon" alt="weather icon" />
+    </div>
+    <span id="temp" class="hidden"></span>
+    <span id="epilogue"
+      >The moment the body leaves the ground, may the mind fall silent and take
+      the leap.</span
+    >
+    <script type="module" src="js/clock.js"></script>
+    <script type="module" src="js/greeting.js"></script>
+    <script type="module" src="js/quote.js"></script>
+    <script type="module" src="js/todo.js"></script>
+    <script type="module" src="js/weather.js"></script>
+    <script type="module" src="js/bar.js"></script>
+    <script type="module" src="js/bar-top.js"></script>
+    <script type="module" src="js/bar-todo.js"></script>
+    <script type="module" src="js/boom.js"></script>
+  </body>
+</html>
