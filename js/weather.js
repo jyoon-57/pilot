@@ -87,11 +87,11 @@ function onGeoOk(pos) {
 
       /* DOM 업데이트 */
       if (label === 'Sunny' && date.getHours() >= 19) {
-        icon.src = `/assets/icons/moonlit.png`;
+        icon.src = `./assets/icons/moonlit.png`;
         icon.alt = label;
         weatherEl.textContent = 'moonlit';
       } else {
-        icon.src = `/assets/icons/${file}`;
+        icon.src = `./assets/icons/${file}`;
         icon.alt = label;
         weatherEl.textContent = label;
       }
@@ -136,3 +136,4 @@ window.addEventListener('resize', () => {
   setWeatherFont();
   setIconSize();
 });
+
