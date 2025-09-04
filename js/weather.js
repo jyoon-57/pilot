@@ -136,4 +136,3 @@ window.addEventListener('resize', () => {
   setWeatherFont();
   setIconSize();
 });
-

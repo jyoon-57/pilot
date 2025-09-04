@@ -79,6 +79,7 @@ export function booom(ts) {
   } else {
     setTimeout(() => {
       document.querySelector('#epilogue').classList.add('show');
+      document.querySelector('#home-btn').classList.add('show');
     }, 1000);
   }
 }
@@ -107,9 +108,22 @@ export function labelBoom(ts) {
 
   if (raw < 1) requestAnimationFrame(labelBoom);
 }
+/* ------------------------------------------------------------------ */
+/* 4. home button clicked                                         */
+/* ------------------------------------------------------------------ */
+function resetSite() {
+  try {
+    localStorage.clear();
+  } catch (e) {
+    console.warn(e);
+  }
+  location.reload();
+}
+
+document.getElementById('home-btn')?.addEventListener('click', resetSite);
 
 /* ------------------------------------------------------------------ */
-/* 4. 메인 랜더                                                      */
+/* 5. 메인 랜더                                                      */
 /* ------------------------------------------------------------------ */
 
 function draw(radius) {

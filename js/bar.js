@@ -4,6 +4,50 @@ const ctx = canvas.getContext('2d');
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
+/* ------------------------------------------------------------------ */
+/* 1. intro                                                     */
+/* ------------------------------------------------------------------ */
+let introRunning = true;
+let introRecH = 155;
+let introTopY = 37.5;
+let introBottomY = 37.5;
+let introStartTime = null;
+
+function intro() {
+  setTimeout(
+    () => document.querySelector('.clock-wrapper').classList.add('show'),
+    500
+  );
+  requestAnimationFrame(animateIntro);
+}
+
+function animateIntro(ts) {
+  if (!introStartTime) introStartTime = ts;
+  const t = Math.min((ts - introStartTime) / 3000, 1);
+  // 부드러운 ease-out
+  const p = 1 - Math.pow(1 - t, 3);
+
+  introTopY = 37.5 + (300 - 37.5) * p;
+  introBottomY = 37.5 + (currentBarY - 37.5) * p; // currentBarY 초기값 300
+  introRecH = 155 + (currentRecHeight - 155) * p;
+
+  draw();
+
+  if (t < 1) {
+    requestAnimationFrame(animateIntro);
+  } else {
+    introRunning = false;
+    introTopY = 300;
+    introBottomY = currentBarY;
+    introRecH = currentRecHeight;
+    draw();
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* 2.                                                   */
+/* ------------------------------------------------------------------ */
+
 let currentAngle = 0;
 let targetAngle = 0;
 let isAnimating = false;
@@ -231,12 +275,12 @@ function draw() {
   ctx.save();
   ctx.filter = 'blur(10px)';
 
-  ctx.fillRect(
-    canvas.width / 2 - 4.5 - 2,
-    canvas.height / 2 - 40 - 300,
-    canvas.width / 2,
-    currentRecHeight
-  );
+  const rectH = introRunning ? introRecH : currentRecHeight;
+  const rectY = introRunning
+    ? canvas.height / 2 - rectH / 2
+    : canvas.height / 2 - 40 - 300;
+
+  ctx.fillRect(canvas.width / 2 - 4.5 - 2, rectY, canvas.width / 2, rectH);
   ctx.restore();
 
   // 바
@@ -251,24 +295,23 @@ function draw() {
     const radius = 4;
 
     if (isTopBarVisible) {
+      const topY = canvas.height / 2 - 40 - (introRunning ? introTopY : 300);
       ctx.beginPath();
-      ctx.roundRect(
-        canvas.width / 2 - 4.5,
-        canvas.height / 2 - 40 - 300,
-        9,
-        80,
-        radius
-      );
+      ctx.roundRect(canvas.width / 2 - 4.5, topY, 9, 80, radius);
       ctx.fill();
     }
 
     ctx.fillStyle = barColor;
+    const extra = extraBarHeight ?? 0;
+    const bottomYParam = introRunning ? introBottomY : currentBarY;
+    const bottomH = introRunning ? 80 : currentBarHeight;
+
     ctx.beginPath();
     ctx.roundRect(
       canvas.width / 2 - 4.5,
-      canvas.height / 2 - 40 + currentBarY - extraBarHeight,
+      canvas.height / 2 - 40 + bottomYParam - extra,
       9,
-      currentBarHeight,
+      bottomH,
       radius
     );
     ctx.fill();
@@ -276,6 +319,7 @@ function draw() {
   ctx.restore();
 }
 draw();
+intro();
 
 window.addEventListener('resize', () => {
   canvas.width = window.innerWidth;

@@ -55,27 +55,6 @@ canvas#boom {
   z-index: 8;
 }
 
-/* epilogue */
-#epilogue {
-  transition: opacity 3s ease-in-out;
-  opacity: 0;
-}
-
-#epilogue.show {
-  opacity: 1;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 35px;
-  font-family: 'Crimson Text', serif;
-  text-align: center;
-  color: #6cb9dc;
-  z-index: 10; /* 다른 요소들 위에 오도록 */
-  line-height: 1.4;
-  white-space: nowrap; /* 줄바꿈 방지 */
-}
-
 /* log in form 등장 */
 #hover-box {
   position: absolute;
@@ -142,6 +121,12 @@ body > img {
 
 /* 시계 */
 .clock-wrapper {
+  opacity: 0;
+  transition: opacity 1.5s ease-in-out;
+}
+
+.clock-wrapper.show {
+  opacity: 1;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -431,4 +416,53 @@ h2#clock1.newClock {
 
   -webkit-mask-repeat: no-repeat;
   mask-repeat: no-repeat;
+}
+
+/* epilogue */
+#epilogue {
+  transition: opacity 3s ease-in-out;
+  opacity: 0;
+}
+
+#epilogue.show {
+  opacity: 1;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 35px;
+  font-family: 'Crimson Text', serif;
+  text-align: center;
+  color: #6cb9dc;
+  z-index: 10; /* 다른 요소들 위에 오도록 */
+  line-height: 1.4;
+  white-space: nowrap; /* 줄바꿈 방지 */
+}
+
+#home-btn {
+  transition: opacity 3s ease-in-out;
+  opacity: 0;
+}
+/* PNG 아이콘 자체가 버튼. 위치/크기 그대로, 그림자 x=5 y=5 blur=12, 15% */
+#home-btn.show {
+  opacity: 1;
+  position: fixed;
+  right: 30px;
+  bottom: calc(30px + env(safe-area-inset-bottom));
+  padding: 0;
+  border: none;
+  background: transparent; /* 프레임 없음 */
+  cursor: pointer;
+  z-index: 10001;
+}
+#home-btn:active {
+  transform: translateY(1px);
+}
+
+#home-btn img {
+  display: block; /* 여백 제거 */
+  width: 80px; /* 현재 크기 유지 (필요하면 조정) */
+  height: auto;
+  filter: drop-shadow(5px 5px 12px rgba(0, 0, 0, 0.15)); /* 도형대로 그림자 */
+  pointer-events: none; /* 클릭 포커스는 버튼에만 */
 }
