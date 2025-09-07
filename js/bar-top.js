@@ -782,7 +782,7 @@ function draw(bloomCurrent) {
   if (isWeatherTexting) {
     ctx.save();
     const x = canvas.width - 30; // right:40px
-    const y = canvas.height / 2 - 345 + canvas.height * 0.2;
+    const y = canvas.height / 2 - 355 + canvas.height * 0.2;
     // const y = canvas.height * 0.33; // 화면 33% 지점
 
     const BASE_W = 1920;
@@ -896,4 +896,5 @@ addEventListener('resize', () => {
 window.addEventListener('scroll', () => {
   if (localStorage.getItem(WEATHER_KEY) === '1') updateWeatherMaskPosition();
 });
+
 
